@@ -1,0 +1,38 @@
+# Playbook to deploy static ports to ?ACI leafs with 
+# data read from a CSV file.
+---
+- name: Deploy Static ports on leafs
+  hosts: apic
+  connection: local
+  gather_facts: false
+
+  # Anchor for login information
+  vars:
+    aci_info: &aci_info
+      hostname: '{{ inventory_hostname }}'
+      username: "{{ username }}"
+      password: '{{ password }}'
+
+  tasks:
+  # Read a CSV file and access Tenant csv
+  - name: Read data from CSV file to be used to configure ACI
+    community.general.read_csv:
+      path: port.csv
+    register: ports
+
+  - name: deploy static path binding for an EPG
+    cisco.aci.aci_static_binding_to_epg:
+      <<: *aci_info
+      tenant: '{{ item.tenant }}'
+      ap: '{{ item.ap }}'
+      epg: '{{ item.epg }}'
+      encap_id: '{{ item.encap_id }}'
+      deploy_immediacy: '{{ item.deploy }}'
+      interface_mode: '{{ item.int_mode }}'
+      interface_type: '{{ item.int_type }}'
+      pod_id: '{{ item.pod_id }}'
+      leafs: '{{ item.leaf }}'
+      interface: '{{ item.int }}'
+      validate_certs: no
+      state: present
+    loop: '{{ ports.list }}'

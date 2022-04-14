@@ -1,0 +1,5 @@
+tenant,ap,epg,encap_id,deploy,int_mode,int_type,pod_id,leaf,int
+empire,empire-ap,sith-epg,133,immediate,access,switch_port,1,201,1/7
+empire,empire-ap,empire-epg,133,lazy,access,switch_port,1,202,1/39
+rebels,rebels-ap,rebels-epg,134,immediate,access,switch_port,1,202,1/41
+rebels,jedi-ap,jedi-epg,129,lazy,access,switch_port,1,201,1/1
