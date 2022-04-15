@@ -17,4 +17,4 @@ It makes a few assumptions:
 - That you have created the associated Tenants, Application Profiles, EPGs, and Fabric access policies.
 - The associated domain has already been configured under the EPG
 
-This was tested with Ansible 2.12 base with ACI version 4.2(6h).
+This was tested with Ansible 2.12 core with ACI version 4.2(6h).
